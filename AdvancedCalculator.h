@@ -50,7 +50,7 @@ class AdvancedCalculator:Calculator {
         }
 
         double permutation() {
-            return fact(firstOperand) / fact(secondOperand);
+            return fact(firstOperand) / fact(firstOperand - secondOperand);
         }
 
         void graph(double xvals[], double yvals[]) {
