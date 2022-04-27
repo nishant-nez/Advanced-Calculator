@@ -1,11 +1,8 @@
 #include<iostream>
-// #include<cmath>
 #include<fstream>
 #include<iomanip>
-
+#include<conio.h>
 #include"AdvancedCalculator.h"
-// #include"graphPlot/pbPlots.hpp"
-// #include"graphPlot/supportLib.hpp"
 
 using namespace std;
 
@@ -22,20 +19,10 @@ void menu() {
     cout << setw(39) << "4) EXIT" << endl << endl << endl;
 }
 
-// .//
-// void calcWrite(int i) {
-//     ofstream writeData("data.txt", ios::binary);
-//     writeData.write(reinterpret_cast<char*>(&SimpleExpression[i]), sizeof(SimpleExpression[i]));
-// }
-
-// ../
-// void readFile(int choice, int i) {
-//     ofstream readData("data.txt", ios::binary);
-//     readData.write(reinterpret_cast<char*>(&SimpleExpression[i]), sizeof(SimpleExpression[i]));
-// }
-
 int main() {
     int choice;
+    static int i;
+    static int j;
     do {
         system("CLS");
         menu();
@@ -52,11 +39,12 @@ int main() {
         // SIMPLE CALCULATOR
         if(choice==1) {
             system("CLS");
-            int i=0;
+            // static int i=0;
             double fo=0;
             double so=0;
             char ch;
             double rslt=0;
+            char prev;
             int oper;
             
 
@@ -86,47 +74,120 @@ int main() {
                 if(oper==1) {
                     cout << "Enter the first operand value: ";
                     cin >> fo;
-                    cout << "Enter the second operand value: ";
-                    cin >> so;
-                    SimpleExpression[i] = new Calculator(fo, so);
-
+                    if(i!=0) {
+                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                        cin >> prev;
+                        if(prev=='y' || prev=='Y') {              
+                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                        }
+                        else {
+                            cout << "Enter the second operand value: ";
+                            cin >> so;
+                            SimpleExpression[i] = new Calculator(fo, so);
+                        }
+                    }
+                    else {
+                        cout << "Enter the second operand value: ";
+                        cin >> so;
+                        SimpleExpression[i] = new Calculator(fo, so);
+                    }
                     rslt = SimpleExpression[i]-> add();
+                    SimpleExpression[i]-> setOperation("Addition");
                 }
                 else if(oper==2) {
                     cout << "Enter the first operand value: ";
-                    cin >> fo;
-                    cout << "Enter the second operand value: ";
-                    cin >> so;
-                    SimpleExpression[i] = new Calculator(fo, so);
+                    cin >> fo;if(i!=0) {
+                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                        cin >> prev;
+                        if(prev=='y' || prev=='Y') {
+                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                        }
+                        else {
+                            cout << "Enter the second operand value: ";
+                            cin >> so;
+                            SimpleExpression[i] = new Calculator(fo, so);
+                        }
+                    }
+                    else {
+                        cout << "Enter the second operand value: ";
+                        cin >> so;
+                        SimpleExpression[i] = new Calculator(fo, so);
+                    }
 
                     rslt = SimpleExpression[i]-> sub();
+                    SimpleExpression[i]-> setOperation("Subtraction");
                 }
                 else if(oper==3) {
                     cout << "Enter the first operand value: ";
                     cin >> fo;
-                    cout << "Enter the second operand value: ";
-                    cin >> so;
-                    SimpleExpression[i] = new Calculator(fo, so);
+                    if(i!=0) {
+                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                        cin >> prev;
+                        if(prev=='y' || prev=='Y') {
+                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                        }
+                        else {
+                            cout << "Enter the second operand value: ";
+                            cin >> so;
+                            SimpleExpression[i] = new Calculator(fo, so);
+                        }
+                    }
+                    else {
+                        cout << "Enter the second operand value: ";
+                        cin >> so;
+                        SimpleExpression[i] = new Calculator(fo, so);
+                    }
 
                     rslt = SimpleExpression[i]-> mul();
+                    SimpleExpression[i]-> setOperation("Multiplication");
                 }
                 else if(oper==4) {
                     cout << "Enter the first operand value: ";
                     cin >> fo;
-                    cout << "Enter the second operand value: ";
-                    cin >> so;
-                    SimpleExpression[i] = new Calculator(fo, so);
+                    if(i!=0) {
+                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                        cin >> prev;
+                        if(prev=='y' || prev=='Y') {
+                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                        }
+                        else {
+                            cout << "Enter the second operand value: ";
+                            cin >> so;
+                            SimpleExpression[i] = new Calculator(fo, so);
+                        }
+                    }
+                    else {
+                        cout << "Enter the second operand value: ";
+                        cin >> so;
+                        SimpleExpression[i] = new Calculator(fo, so);
+                    }
 
                     rslt = SimpleExpression[i]-> div();
+                    SimpleExpression[i]-> setOperation("Division");
                 }
                 else if(oper==5) {
                     cout << "Enter the first operand value: ";
                     cin >> fo;
-                    cout << "Enter the second operand value: ";
-                    cin >> so;
-                    SimpleExpression[i] = new Calculator(fo, so);
+                    if(i!=0) {
+                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                        cin >> prev;
+                        if(prev=='y' || prev=='Y') {
+                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                        }
+                        else {
+                            cout << "Enter the second operand value: ";
+                            cin >> so;
+                            SimpleExpression[i] = new Calculator(fo, so);
+                        }
+                    }
+                    else {
+                        cout << "Enter the second operand value: ";
+                        cin >> so;
+                        SimpleExpression[i] = new Calculator(fo, so);
+                    }
 
                     rslt = SimpleExpression[i]-> modulo();
+                    SimpleExpression[i]-> setOperation("Modulos");
                 }
 
                 // TRIGONOMETRIC
@@ -136,6 +197,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]->sinCalc();
+                    SimpleExpression[i]-> setOperation("Sin");
                 }
                 else if(oper==7) {
                     cout << "Enter the value: ";
@@ -143,6 +205,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> cosCalc();
+                    SimpleExpression[i]-> setOperation("Cos");
                 }
                 else if(oper==8) {
                     cout << "Enter the value: ";
@@ -150,6 +213,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> tanCalc();
+                    SimpleExpression[i]-> setOperation("Tan");
                 }
                 else if(oper==9) {
                     cout << "Enter the value: ";
@@ -157,6 +221,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> cosecCalc();
+                    SimpleExpression[i]-> setOperation("Cosec");
                 }
                 else if(oper==10) {
                     cout << "Enter the value: ";
@@ -164,6 +229,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> secCalc();
+                    SimpleExpression[i]-> setOperation("Sec");
                 }
                 else if(oper==11) {
                     cout << "Enter the value: ";
@@ -171,6 +237,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> cotCalc();
+                    SimpleExpression[i]-> setOperation("Cot");
                 }
 
                 // POWER
@@ -180,6 +247,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> squareRoot();
+                    SimpleExpression[i]-> setOperation("Square Root");
                 }
                 else if(oper==13) {
                     cout << "Enter the value: ";
@@ -187,6 +255,7 @@ int main() {
                     SimpleExpression[i] = new Calculator(fo);
 
                     rslt = SimpleExpression[i]-> cubeRoot();
+                    SimpleExpression[i]-> setOperation("Cube Root");
                 }
                 else {
                     cout << endl << "Invalid Operator!";
@@ -211,7 +280,7 @@ int main() {
         // ADVANCED CALCULATOR
         else if (choice==2) {
             system("CLS");
-            int i=0;
+            // static int j=0;
             double fo=0;
             double so=0;
             char ch;
@@ -235,47 +304,51 @@ int main() {
                 system("CLS");
 
                 if(oper==1) {
-                    cout << "Enter the first operand value: ";
+                    cout << "Enter the range (n): ";
                     cin >> fo;
-                    AdvExpression[i] = new AdvancedCalculator(fo);
+                    AdvExpression[j] = new AdvancedCalculator(fo);
 
-                    rslt = AdvExpression[i]-> fact();
+                    rslt = AdvExpression[j]-> fact();
+                    AdvExpression[j]-> setOperation("Factorial");
                 }
                 else if(oper==2) {
-                    cout << "Enter the first operand value: ";
+                    cout << "Enter the value: ";
                     cin >> fo;
-                    AdvExpression[i] = new AdvancedCalculator(fo);
+                    AdvExpression[j] = new AdvancedCalculator(fo);
 
-                    rslt = AdvExpression[i]-> exponential();
+                    rslt = AdvExpression[j]-> exponential();
+                    AdvExpression[j]-> setOperation("Exponential");
                 }
                 else if(oper==3) {
                     cout << "Enter the n: ";
                     cin >> fo;
                     cout << "Enter r: ";
                     cin >> so;
-                    AdvExpression[i] = new AdvancedCalculator(fo, so);
+                    AdvExpression[j] = new AdvancedCalculator(fo, so);
 
-                    rslt = AdvExpression[i]-> combination();
+                    rslt = AdvExpression[j]-> combination();
+                    AdvExpression[j]-> setOperation("Combination");
                 }
                 else if(oper==4) {
                     cout << "Enter the n: ";
                     cin >> fo;
                     cout << "Enter r: ";
                     cin >> so;
-                    AdvExpression[i] = new AdvancedCalculator(fo, so);
+                    AdvExpression[j] = new AdvancedCalculator(fo, so);
 
-                    rslt = AdvExpression[i]-> permutation();
+                    rslt = AdvExpression[j]-> permutation();
+                    AdvExpression[j]-> setOperation("Permutation");
                 }
                 else {
                     cout << endl << "Invalid Operator!";
                 }
 
                 cout << "Result : " << rslt;
-                AdvExpression[i] -> setResult(rslt);
+                AdvExpression[j] -> setResult(rslt);
                 ofstream writeData("AdvData.txt", ios::binary);
-                writeData.write(reinterpret_cast<char*>(&AdvExpression[i]), sizeof(AdvExpression[i]));
+                writeData.write(reinterpret_cast<char*>(&AdvExpression[j]), sizeof(AdvExpression[j]));
 
-                i++;
+                j++;
                 cout << endl << "Calculate again? (y/n) ";
                 cin >> ch;
                 if(ch=='y' || ch=='Y') {
@@ -287,11 +360,14 @@ int main() {
         }
 
         // OPERATION HISTORY
-        else if(choice==3) {
-            ifstream readFile("SimpleData.txt",ios::binary);
-            readFile.read(reinterpret_cast<char*>(&SimpleExpression[0]), sizeof(SimpleExpression[0]));
+        else {
+            char temp;
+            system("CLS");
 
-            cout << "first operand: "<<SimpleExpression[0]->getFirstOperand();
+            // CODE FOR FILE READ, DISPLAY
+
+            //
         }
     } while(choice!=4);
+    
 }

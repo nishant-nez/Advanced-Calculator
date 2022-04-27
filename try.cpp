@@ -1,23 +1,28 @@
 #include<iostream>
 #include<fstream>
+#include<typeinfo>
 #include"Calculator.h"
 
 using namespace std;
 
+template<class T>
+T previousResult() {
+    T fo;
+    cin >> fo;
+    cout << endl << typeid(fo).name() << endl;
+    return fo;
+}
+
 int main() {
-    Calculator calc1(23);
-    Calculator calc2(69);
-    cout << endl << calc1.getFirstOperand() << " " << calc1.getFirstOperand();
-    cout << endl << calc2.getFirstOperand() << " " << calc2.getFirstOperand();
+    double fo=0;
+    double so=0;
+    string temp="test0";
+    cin>>so;
+    cout << "Enter first operand: ";
+    fo = previousResult<double>();
+    cout << fo;
+    // cout << endl << typeid(previousResult()).name() << endl;
+    // cout << "Enter second operand: ";
+    // cin >> so;
 
-    ofstream writeFile("sample.txt", ios::binary);
-    writeFile.write(reinterpret_cast<char*>(&calc1), sizeof(calc1));
-    writeFile.write(reinterpret_cast<char*>(&calc2), sizeof(calc1));
-
-    ifstream readFile("sample.txt", ios::binary);
-    readFile.read(reinterpret_cast<char*>(&calc1), sizeof(calc1));
-    readFile.read(reinterpret_cast<char*>(&calc2), sizeof(calc2));
-
-    cout << endl << calc1.getFirstOperand() << " " << calc1.getFirstOperand();
-    cout << endl << calc2.getFirstOperand() << " " << calc2.getFirstOperand();
 }

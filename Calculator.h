@@ -5,7 +5,7 @@ using namespace std;
 class Calculator{
     protected:
         double firstOperand;
-        // string opr;
+        string operation;
         double secondOperand;
         double result;
 
@@ -24,6 +24,9 @@ class Calculator{
         void setResult(double rlt) {
             result=rlt;
         }
+        void setOperation(string oper) {
+            operation=oper;
+        }
 
         double getFirstOperand() {
             return firstOperand;
@@ -33,6 +36,9 @@ class Calculator{
         }
         double getResult() {
             return result;
+        }
+        string getoperation() {
+            return operation;
         }
 
         // BASIC ARITHMETIC FUNCTIONS
