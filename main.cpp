@@ -157,6 +157,9 @@ int main() {
                             cin >> so;
                             SimpleExpression[i] = new Calculator(fo, so);
                         }
+
+                        
+
                     }
                     else {
                         cout << "Enter the second operand value: ";
@@ -184,6 +187,7 @@ int main() {
                 }
                 else if(oper==5) {
 
+                    do{
                     
                     cout << "Enter the first operand value: ";
                     cin >> fo;
@@ -205,8 +209,24 @@ int main() {
                         SimpleExpression[i] = new Calculator(fo, so);
                     }
 
-                    rslt = SimpleExpression[i]-> modulo();
+                    try{
+                            if(so != 0)
+                            {
+                               rslt = SimpleExpression[i]-> modulo();
                     SimpleExpression[i]-> setOperation("Modulos");
+                            }
+
+                            else{
+                                throw(so);
+                            }
+                            }
+                            catch(double so){
+                                cout<<"Invalid Value."<<endl; 
+                            cout<<"Please try with different numbers instead of 0."<<endl;
+                            }
+
+                    
+                    }while(so == 0);
                     
                 }
 
