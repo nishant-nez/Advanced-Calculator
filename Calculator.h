@@ -12,7 +12,7 @@ class Calculator{
     public:
         Calculator() {}
         Calculator(double fo, double so):firstOperand(fo), secondOperand(so) {}
-        Calculator(double fo):firstOperand(fo) {}
+        Calculator(double fo):firstOperand(fo), secondOperand(0) {}
 
         // GETTERS SETTERS
         void setFirstOperand(double fo) {

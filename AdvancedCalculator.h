@@ -1,7 +1,6 @@
 #include<iostream>
 #include"Calculator.h"
-// #include"graphPlot/pbPlots.hpp"
-// #include"graphPlot/supportLib.hpp"
+
 using namespace std;
 
 
@@ -11,13 +10,6 @@ class AdvancedCalculator: public Calculator {
         AdvancedCalculator() {}
         AdvancedCalculator(double fo, double so):Calculator(fo, so) {}
         AdvancedCalculator(double fo):Calculator(fo) {}
-
-        // void setResult(double rlt) {
-        //     result=rlt;
-        // }
-        // double getResult() {
-        //     return result;
-        // }
 
         // CALCULATOR FUNCTIONS
         int fact() {

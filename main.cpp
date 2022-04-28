@@ -1,7 +1,17 @@
+/*
+* Program: Advanced Calculator
+* Date: 29 April 2022
+* Authors: Nishant Khadka, Samrajya Basnyat, Yokibha Chapagain
+*
+*
+*/
+
+
 #include<iostream>
 #include<fstream>
 #include<iomanip>
 #include<conio.h>
+#include<limits>
 #include"AdvancedCalculator.h"
 
 using namespace std;
@@ -23,7 +33,7 @@ int main() {
     int choice;
     static int i;
     static int j;
-    do {
+    while (true) {
         system("CLS");
         menu();
         cout<<endl;
@@ -31,6 +41,8 @@ int main() {
     
         if(choice!=1 && choice!=2 && choice!=3 && choice!=4) {
             do {
+                cin.clear();
+                 
                 cout << "Invalid Option Please try again! : ";
                 cin >> choice;
             } while(choice!=1 && choice!=2 && choice!=3);
@@ -46,7 +58,7 @@ int main() {
             double rslt=0;
             char prev;
             int oper;
-            
+            ofstream writeData("SimpleData.txt", ios::binary);
 
             do
             {
@@ -143,48 +155,47 @@ int main() {
                 }
                 else if(oper==4) {
                     do{
-                    cout << "Enter the first operand value: ";
-                    cin >> fo;
-                    if(i!=0) {
-                        cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
-                        cin >> prev;
-                        if(prev=='y' || prev=='Y') {
-                            SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
-                            
+                        cout << "Enter the first operand value: ";
+                        cin >> fo;
+                        if(i!=0) {
+                            cout << "Enter the second operand from the value of previous operation's result? (y/n): ";
+                            cin >> prev;
+                            if(prev=='y' || prev=='Y') {
+                                SimpleExpression[i] = new Calculator(fo, SimpleExpression[i-1]->getResult());
+                                
+                            }
+                            else {
+                                cout << "Enter the second operand value: ";
+                                cin >> so;
+                                SimpleExpression[i] = new Calculator(fo, so);
+                            }
                         }
                         else {
                             cout << "Enter the second operand value: ";
                             cin >> so;
                             SimpleExpression[i] = new Calculator(fo, so);
                         }
-                    }
-                    else {
-                        cout << "Enter the second operand value: ";
-                        cin >> so;
-                        SimpleExpression[i] = new Calculator(fo, so);
-                    }
 
                         try{
                             if(so != 0)
                             {
-                                 rslt = SimpleExpression[i]-> div();
+                                rslt = SimpleExpression[i]-> div();
                                 SimpleExpression[i]-> setOperation("Division");
                             }
 
                             else{
                                 throw(so);
                             }
-                            }
+                        }
                             catch(double so){
-                                cout<<"Error!! Denominator 0 gives the value infinity."<<endl; 
+                            cout<<"Error!! Denominator 0 gives the value infinity."<<endl; 
                             cout<<"Please try with different numbers."<<endl;
-                            }
-                   
+                        }
+                    
                     }while(so==0);
                 }
-                else if(oper==5) {
 
-                    
+                else if(oper==5) {    
                     cout << "Enter the first operand value: ";
                     cin >> fo;
                     if(i!=0) {
@@ -229,40 +240,40 @@ int main() {
                 }
                 else if(oper==8) {
                     do{
-                    cout << "Enter the value: ";
-                    cin >> fo;
+                        cout << "Enter the value: ";
+                        cin >> fo;
 
-                    try{
-                        if(fo != 90)
+                        try{
+                            if(fo != 90)
+                            {
+                                SimpleExpression[i] = new Calculator(fo);
+
+                                rslt = SimpleExpression[i]-> tanCalc();
+                                SimpleExpression[i]-> setOperation("Tan");
+                            }
+
+                            else{
+                                throw(fo);
+                            }
+                        }
+                        catch(double fo)
                         {
-                             SimpleExpression[i] = new Calculator(fo);
-
-                    rslt = SimpleExpression[i]-> tanCalc();
-                    SimpleExpression[i]-> setOperation("Tan");
+                            cout <<"Invalid value! Please enter a different value"<<endl;
                         }
-
-                        else{
-                            throw(fo);
-                        }
-                    }
-                    catch(double fo)
-                    {
-                        cout <<"Invalid value! Please enter a different value"<<endl;
-                    }
                    
-                    }while(fo == 90);
+                    } while(fo == 90);
                 }
                 else if(oper==9) {
                     do{
-                    cout << "Enter the value: ";
-                    cin >> fo;
-                     try{
+                        cout << "Enter the value: ";
+                        cin >> fo;
+                        try{
                             if(fo != 0)
                             {
-                    SimpleExpression[i] = new Calculator(fo);
+                                SimpleExpression[i] = new Calculator(fo);
 
-                    rslt = SimpleExpression[i]-> cosecCalc();
-                    SimpleExpression[i]-> setOperation("Cosec");
+                                rslt = SimpleExpression[i]-> cosecCalc();
+                                SimpleExpression[i]-> setOperation("Cosec");
                             }
 
                             else{
@@ -271,7 +282,7 @@ int main() {
                         }
 
                         catch(double fo){
-                        cout <<"Invalid value! Please enter a different value"<<endl;
+                            cout <<"Invalid value! Please enter a different value"<<endl;
                         }
 
                    
@@ -279,66 +290,15 @@ int main() {
                 }
                 else if(oper==10) {
                     do{
-                    cout << "Enter the value: ";
-                    cin >> fo;
-                    try{
+                        cout << "Enter the value: ";
+                        cin >> fo;
+                        try{
 
-                        if(fo != 90){
-                   SimpleExpression[i] = new Calculator(fo);
+                            if(fo != 90){
+                                SimpleExpression[i] = new Calculator(fo);
 
-                    rslt = SimpleExpression[i]-> secCalc();
-                    SimpleExpression[i]-> setOperation("Sec");
-                        }
-
-                        else{
-                            throw(fo);
-                        }
-                    }
-
-                    catch(double fo){
-                        cout<<" Invalid! Please enter a different value. "<<endl;
-                    }
-
-                    
-                    }while(fo == 90);
-                }
-                else if(oper==11) {
-
-                    do{
-                    cout << "Enter the value: ";
-                    cin >> fo;
-                     try{
-                    if(fo != 90){
-                    SimpleExpression[i] = new Calculator(fo);
-
-                    rslt = SimpleExpression[i]-> cotCalc();
-                    SimpleExpression[i]-> setOperation("Cot");
-                    }
-
-                    else{
-                        throw(fo);
-                    }
-                    }
-
-                    catch(double fo){
-                        cout<<" Invalid! Please enter a different value. "<<endl;
-                    }
-                    
-                    }while(fo == 90);
-                }
-
-                // POWER
-                else if(oper==12) {
-                    do{
-                    cout << "Enter the value: ";
-                    cin >> fo;
-                    try{
-                            if(fo >= 0)
-                            {
-                    SimpleExpression[i] = new Calculator(fo);
-
-                    rslt = SimpleExpression[i]-> squareRoot();
-                    SimpleExpression[i]-> setOperation("Square Root");
+                                rslt = SimpleExpression[i]-> secCalc();
+                                SimpleExpression[i]-> setOperation("Sec");
                             }
 
                             else{
@@ -347,11 +307,62 @@ int main() {
                         }
 
                         catch(double fo){
+                            cout<<" Invalid! Please enter a different value. "<<endl;
+                        }
+
+                    
+                    } while(fo == 90);
+                }
+                else if(oper==11) {
+
+                    do{
+                        cout << "Enter the value: ";
+                        cin >> fo;
+                        try{
+                            if(fo != 90){
+                                SimpleExpression[i] = new Calculator(fo);
+
+                                rslt = SimpleExpression[i]-> cotCalc();
+                                SimpleExpression[i]-> setOperation("Cot");
+                            }
+
+                            else{
+                                throw(fo);
+                            }
+                        }
+
+                        catch(double fo){
+                            cout<<" Invalid! Please enter a different value. "<<endl;
+                        }
+                    
+                    } while(fo == 90);
+                }
+
+                // POWER
+                else if(oper==12) {
+                    do{
+                        cout << "Enter the value: ";
+                        cin >> fo;
+                        try{
+                            if(fo >= 0)
+                            {
+                                SimpleExpression[i] = new Calculator(fo);
+
+                                rslt = SimpleExpression[i]-> squareRoot();
+                                SimpleExpression[i]-> setOperation("Square Root");
+                            }
+
+                            else{
+                                throw(fo);
+                                }
+                        }
+
+                        catch(double fo){
                             cout<<"Error!! Please enter positive values for square root."<<endl;
                         }
 
                     
-                    }while(fo <= 0);
+                    } while(fo <= 0);
                 }
                 else if(oper==13) {
                     cout << "Enter the value: ";
@@ -367,7 +378,6 @@ int main() {
 
                 cout << "Result : " << rslt;
                 SimpleExpression[i] -> setResult(rslt);
-                ofstream writeData("SimpleData.txt", ios::binary);
                 writeData.write(reinterpret_cast<char*>(&SimpleExpression[i]), sizeof(SimpleExpression[i]));
 
                 i++;
@@ -390,6 +400,7 @@ int main() {
             char ch;
             double rslt=0;
             int oper;
+            ofstream writeData("AdvData.txt", ios::binary);
 
             
             //
@@ -449,7 +460,6 @@ int main() {
 
                 cout << "Result : " << rslt;
                 AdvExpression[j] -> setResult(rslt);
-                ofstream writeData("AdvData.txt", ios::binary);
                 writeData.write(reinterpret_cast<char*>(&AdvExpression[j]), sizeof(AdvExpression[j]));
 
                 j++;
@@ -464,14 +474,42 @@ int main() {
         }
 
         // OPERATION HISTORY
-        else {
+        else if(choice==3) {
             char temp;
             system("CLS");
 
             // CODE FOR FILE READ, DISPLAY
+            ifstream readData("SimpleData.txt",ios::binary);
+            cout<<"Operations in Simple Calculator"<<endl<<endl;
 
-            //
+            while(!readData.eof())
+            {
+                readData.read(reinterpret_cast<char*>(&SimpleExpression[0]), sizeof(SimpleExpression[0]));
+                if(readData.eof()) break;
+                cout<<SimpleExpression[0]->getoperation()<<endl;
+                cout<<"The First Operand is : "<<SimpleExpression[0]->getFirstOperand()<<endl;
+                cout<<"The Second Operand is : "<<SimpleExpression[0]->getSecondOperand()<<endl;
+                cout<<"The Final Result of the Operation is : "<<SimpleExpression[0]->getResult()<<endl<<endl;
+            }
+            
+            ifstream readAdvData("AdvData.txt",ios::binary);
+            cout<<endl<<"Operations in Advanced Calculator"<<endl<<endl;
+
+            while(!readAdvData.eof())
+            {
+                readAdvData.read(reinterpret_cast<char*>(&AdvExpression[0]), sizeof(AdvExpression[0]));
+                if(readAdvData.eof()) break;
+                cout<<AdvExpression[0]->getoperation()<<endl;
+                cout<<"The First Operand is : "<<AdvExpression[0]->getFirstOperand()<<endl;
+                cout<<"The Second Operand is : "<<AdvExpression[0]->getSecondOperand()<<endl;
+                cout<<"The Final Result of the Operation is : "<<AdvExpression[0]->getResult()<<endl<<endl;
+            }
+            cout<<"Input any key to continue"<<endl<<endl;
+            cin>>temp;
         }
-    } while(choice!=4);
+        else {
+            break;
+        }
+    } 
     
 }
